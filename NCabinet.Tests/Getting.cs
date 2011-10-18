@@ -9,8 +9,8 @@ namespace NCabinet.Tests
         public void Get()
         {
             var cache = new CacheManager();
-            cache.Get(GetAString, 10);
-            cache.Get(GetAString, 10, 20);
+            var output = cache.Get(GetAString, 10);
+            var output1 = cache.Get(GetAString, 10, 20);
         }
 
         public string GetAString(int asInteger)
