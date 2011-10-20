@@ -41,7 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheManager.cs" />
+    <Compile Include="CacheManagerExtensions.cs" />
+    <Compile Include="CacheOptions.cs" />
     <Compile Include="Callback.cs" />
+    <Compile Include="Exceptions\InvalidExpirationIntervalException.cs" />
+    <Compile Include="ExpirationInterval.cs" />
     <Compile Include="ICacheManager.cs" />
     <Compile Include="ICacheProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
