@@ -1,10 +1,13 @@
 using System;
 using NCabinet.Exceptions;
+using NCabinet.Settings;
 
 namespace NCabinet
 {
     public partial class CacheManager : ICacheManager
     {
+        private static ICacheProvider _provider;
+
         private string Name { get; set; }
         private string Description { get; set; }
         private DateTime? Expiration { get; set; }
@@ -23,6 +26,23 @@ namespace NCabinet
             Description = options.Description;
             Expiration = options.Expires;
             SlidingExpiration = options.KeepAlive;
+        }
+
+        internal static void SetProvider(ICacheProvider provider)
+        {
+            if (_provider != null)
+                throw new ExistingProviderException();
+
+            _provider = provider;
+        }
+
+        public static void Initialize(Action<IInitializationExpression> action)
+        {
+            lock (typeof(CacheManager))
+            {
+                var expression = new InitializationExpression();
+                action(expression);
+            }
         }
 
         public static CacheManager Create(CacheOptions options = null)
@@ -104,7 +124,21 @@ namespace NCabinet
 
         private T Get<T>()
         {
-            return default(T);
+            Type dataAccessType = dataAccess.GetType();
+
+            Type type = typeof(T);
+            var compKey = BuildKey(keys, type);
+            var value = cache.Get(compKey);
+
+            if (value == null)
+            {
+                value = dataAccess(keys);
+                if (value != null)
+                {
+                    AddToCache(compKey, value);
+                }
+            }
+            return value is T ? (T)value : default(T);
         }
 
         public T Get<T>(Callback<T> callback, params object[] parameters)

@@ -1,0 +1,11 @@
+Local.testsettings
+NCabinet.5.1.ReSharper.user
+NCabinet.suo
+NCabinet/bin/
+NCabinet/obj/
+NCabinet.HttpRuntimeCacheProvider/bin/
+NCabinet.HttpRuntimeCacheProvider/obj/
+NCabinet.Tests/bin/
+NCabinet.Tests/obj/
+_ReSharper.NCabinet/
+
