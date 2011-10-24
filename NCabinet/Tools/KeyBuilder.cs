@@ -1,18 +1,13 @@
-using System.Diagnostics;
-using NCabinet.Exceptions;
+using System;
+using NCabinet.Inspection;
 
 namespace NCabinet.Tools
 {
     public static class KeyBuilder
     {
-        public static string Build(params object [] components)
+        public static string Build(Type type, CallerInfo caller, params object [] components)
         {
-            var stack = new StackTrace();
-            var frame = stack.GetFrame(2);
-            if (frame == null)
-                throw new CallingMethodNotFoundException();
-
-            return "";
+            return String.Format("{0}:{1}.{2}", type.FullName, caller.FullMethodName, String.Join(".", components));
         }
     }
 }

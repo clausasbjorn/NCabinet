@@ -1,11 +1,10 @@
 using System;
+using NCabinet.Tools;
 
 namespace NCabinet
 {
     public partial class CacheManager
     {
-        private class NoKey { }
-
         private static NoKey _n;
         private static NoKey N
         {

@@ -13,7 +13,12 @@ namespace NCabinet.Tests
                 setting.UseProvider<ICacheProvider>();
             });
 
-            
+            var test = CacheManager.Create().Get(Awesomeness, 10, 50, 40);
+        }
+
+        public string Awesomeness(int a, int b, int c)
+        {
+            return (a + b + c).ToString();
         }
     }
 }

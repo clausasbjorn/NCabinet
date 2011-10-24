@@ -44,12 +44,21 @@
     <Compile Include="CacheManagerExtensions.cs" />
     <Compile Include="CacheOptions.cs" />
     <Compile Include="Callback.cs" />
+    <Compile Include="Exceptions\CallingMethodNotFoundException.cs" />
+    <Compile Include="Exceptions\ExistingProviderException.cs" />
     <Compile Include="Exceptions\InvalidExpirationIntervalException.cs" />
     <Compile Include="ExpirationInterval.cs" />
     <Compile Include="ICacheManager.cs" />
     <Compile Include="ICacheProvider.cs" />
+    <Compile Include="Inspection\CallerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\IInitializationExpression.cs" />
+    <Compile Include="Settings\InitializationExpression.cs" />
+    <Compile Include="Inspection\CallAnalyzer.cs" />
+    <Compile Include="Tools\KeyBuilder.cs" />
+    <Compile Include="Tools\NoKey.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
