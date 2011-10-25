@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using NCabinet.Exceptions;
 
 namespace NCabinet.Inspection
@@ -28,14 +30,10 @@ namespace NCabinet.Inspection
             }
         }
 
-        public static CallerInfo GetCallbackInfo<T>(Delegate callback)
+        public static CallerInfo GetCallbackInfo(object callback)
         {
-            var method = callback.Method;
 
-            var declarer = method.DeclaringType.FullName;
-            var name = method.Name;
-
-            return new CallerInfo() { Namespace = declarer, Method = name };
+            return new CallerInfo() { Namespace = "", Method = "" };
         }
     }
 }

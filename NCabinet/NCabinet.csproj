@@ -44,6 +44,7 @@
     <Compile Include="CacheManagerExtensions.cs" />
     <Compile Include="CacheOptions.cs" />
     <Compile Include="Callback.cs" />
+    <Compile Include="Exceptions\CallbackMethodNotFoundException.cs" />
     <Compile Include="Exceptions\CallingMethodNotFoundException.cs" />
     <Compile Include="Exceptions\ExistingProviderException.cs" />
     <Compile Include="Exceptions\InvalidExpirationIntervalException.cs" />

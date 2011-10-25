@@ -142,7 +142,7 @@ namespace NCabinet
             if (typeof(TIn16) != n) keys.Add(i16);
 
             var type = typeof(TOut);
-            var caller = CallAnalyzer.GetCallbackInfo<TOut>(callback);
+            var caller = CallAnalyzer.GetCallbackInfo(callback);
 
             var key = KeyBuilder.Build(type, caller, keys.ToArray());
 
