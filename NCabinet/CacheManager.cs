@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NCabinet.Exceptions;
 using NCabinet.Inspection;
 using NCabinet.Settings;
@@ -120,7 +121,7 @@ namespace NCabinet
         /// <summary>
         /// 
         /// </summary>
-        public TOut Get<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut> callback, TIn1 i1, TIn2 i2, TIn3 i3, TIn4 i4, TIn5 i5, TIn6 i6, TIn7 i7, TIn8 i8, TIn9 i9, TIn10 i10, TIn11 i11, TIn12 i12, TIn13 i13, TIn14 i14, TIn15 i15, TIn16 i16)
+        private TOut Get<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut> callback, TIn1 i1, TIn2 i2, TIn3 i3, TIn4 i4, TIn5 i5, TIn6 i6, TIn7 i7, TIn8 i8, TIn9 i9, TIn10 i10, TIn11 i11, TIn12 i12, TIn13 i13, TIn14 i14, TIn15 i15, TIn16 i16, MethodInfo callerInfo)
         {
             var n = typeof (NoKey);
             var keys = new List<object>();
@@ -142,16 +143,27 @@ namespace NCabinet
             if (typeof(TIn16) != n) keys.Add(i16);
 
             var type = typeof(TOut);
-            var caller = CallAnalyzer.GetCallbackInfo(callback);
+            var caller = CallAnalyzer.GetCallbackInfo(callerInfo);
 
             var key = KeyBuilder.Build(type, caller, keys.ToArray());
 
             var value = _cache.Get(key);
             if (value == null)
             {
-                value = callback(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16); ;
+                value = callback(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16);
                 if (value != null)
-                    _cache.Put(key, value);
+                {
+                    var cacheItem = new CacheItem();
+                    cacheItem.Value = value;
+                    cacheItem.Key = key;
+                    cacheItem.Namespace = caller.Namespace;
+                    cacheItem.Method = cacheItem.Method;
+                    cacheItem.Name = Name;
+                    cacheItem.Description = Description;
+                    cacheItem.Loaded = DateTime.Now;
+
+                    _cache.Put(key, cacheItem);
+                }
             }
 
             return value is TOut ? (TOut)value : default(TOut);

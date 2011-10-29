@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using NCabinet.Exceptions;
 
@@ -30,10 +32,14 @@ namespace NCabinet.Inspection
             }
         }
 
-        public static CallerInfo GetCallbackInfo(object callback)
+        public static CallerInfo GetCallbackInfo(MethodInfo method)
         {
+            var declarer = method.DeclaringType.FullName;
+            var name = method.Name;
 
-            return new CallerInfo() { Namespace = "", Method = "" };
+            return new CallerInfo() { Namespace = declarer, Method = name };
         }
     }
+
+
 }
