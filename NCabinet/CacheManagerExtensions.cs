@@ -11,6 +11,12 @@ namespace NCabinet
             get { return _n ?? (_n = new NoKey()); }
         }
 
+        public TOut Get<TOut>(Func<TOut> callback)
+        {
+            Func<NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, TOut> wrapper = (p1, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15) => callback();
+            return Get(wrapper, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, callback.Method);
+        }
+
         public TOut Get<TIn1, TOut>(Func<TIn1, TOut> callback, TIn1 i1)
         {
             Func<TIn1, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, TOut> wrapper = (p1, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15) => callback(p1);
@@ -105,6 +111,12 @@ namespace NCabinet
         {
             Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut> wrapper = callback;
             return Get(wrapper, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, callback.Method);
+        }
+
+        public void Remove<TOut>(Func<TOut> callback)
+        {
+            Func<NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, TOut> wrapper = (p1, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15) => callback();
+            Remove(wrapper, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, callback.Method);
         }
 
         public void Remove<TIn1, TOut>(Func<TIn1, TOut> callback, TIn1 i1)
@@ -203,7 +215,11 @@ namespace NCabinet
             Remove(wrapper, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, callback.Method);
         }
 
-
+        public bool Exists<TOut>(Func<TOut> callback)
+        {
+            Func<NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, NoKey, TOut> wrapper = (p1, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15) => callback();
+            return Exists(wrapper, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, callback.Method);
+        }
 
         public bool Exists<TIn1, TOut>(Func<TIn1, TOut> callback, TIn1 i1)
         {

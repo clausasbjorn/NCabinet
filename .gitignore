@@ -7,5 +7,7 @@ NCabinet.HttpRuntimeCacheProvider/bin/
 NCabinet.HttpRuntimeCacheProvider/obj/
 NCabinet.Tests/bin/
 NCabinet.Tests/obj/
+NCabinet.Monitor/bin/
+NCabinet.Monitor/obj/
 _ReSharper.NCabinet/
 

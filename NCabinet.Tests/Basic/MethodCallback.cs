@@ -8,6 +8,21 @@ namespace NCabinet.Tests.Basic
     public class MethodCallback : BaseTest
     {
         [TestMethod]
+        public void GetWithoutParameters()
+        {
+            var cache = Cache;
+
+            var user1 = cache.Get(Mock.GetDefaultUser);
+            Thread.Sleep(1000);
+            var user2 = cache.Get(Mock.GetDefaultUser);
+
+            Assert.IsNotNull(user1);
+            Assert.IsNotNull(user2);
+            Assert.AreEqual(user1.Timestamp, user2.Timestamp);
+            Assert.AreSame(user1, user2);
+        }
+
+        [TestMethod]
         public void Get()
         {
             var cache = Cache;

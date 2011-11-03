@@ -214,8 +214,7 @@ namespace NCabinet
         public T Get<T>(params object[] parameters)
         {
             var type = typeof(T);
-            var caller = CallAnalyzer.GetCallerInfo();
-            var key = KeyBuilder.Build(type, caller, parameters);
+            var key = KeyBuilder.Build(type, null, parameters);
 
             var value = _cache.Get(key);
             if (value == null)
@@ -235,7 +234,7 @@ namespace NCabinet
             
             var type = value.GetType();
             var caller = CallAnalyzer.GetCallerInfo();
-            var key = KeyBuilder.Build(type, caller, parameters);
+            var key = KeyBuilder.Build(type, null, parameters);
 
             var cacheItem = new CacheItem();
             cacheItem.Value = value;
@@ -251,8 +250,7 @@ namespace NCabinet
         public void Remove<T>(params object[] parameters)
         {
             var type = typeof(T);
-            var caller = CallAnalyzer.GetCallerInfo();
-            var key = KeyBuilder.Build(type, caller, parameters);
+            var key = KeyBuilder.Build(type, null, parameters);
 
             _cache.Remove(key);
         }
@@ -302,8 +300,7 @@ namespace NCabinet
         public bool Exists<T>(params object[] parameters)
         {
             var type = typeof(T);
-            var caller = CallAnalyzer.GetCallerInfo();
-            var key = KeyBuilder.Build(type, caller, parameters);
+            var key = KeyBuilder.Build(type, null, parameters);
 
             return _cache.Exists(key);
         }

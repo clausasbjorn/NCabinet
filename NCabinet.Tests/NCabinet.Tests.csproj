@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Basic\DelegateCallback.cs" />
     <Compile Include="Basic\MethodCallback.cs" />
+    <Compile Include="Basic\NoCallback.cs" />
     <Compile Include="Data\BaseDataObject.cs" />
     <Compile Include="Data\Mock.cs" />
     <Compile Include="Data\User.cs" />
