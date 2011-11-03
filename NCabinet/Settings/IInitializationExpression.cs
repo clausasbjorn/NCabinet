@@ -2,6 +2,6 @@ namespace NCabinet.Settings
 {
     public interface IInitializationExpression
     {
-        void UseProvider<T>() where T : ICacheProvider;
+        void UseProvider<T>(T provider) where T : ICacheProvider;
     }
 }

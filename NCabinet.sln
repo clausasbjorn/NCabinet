@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Testing", "4. Testing", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCabinet.HttpRuntimeCacheProvider", "NCabinet.HttpRuntimeCacheProvider\NCabinet.HttpRuntimeCacheProvider.csproj", "{051F4C8F-1878-4505-9292-305B9296F794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCabinet.Monitor", "NCabinet.Monitor\NCabinet.Monitor.csproj", "{38047049-9711-4C1F-8FE0-F77950375060}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = NCabinet.vsmdi
@@ -43,14 +45,19 @@ Global
 		{051F4C8F-1878-4505-9292-305B9296F794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051F4C8F-1878-4505-9292-305B9296F794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{051F4C8F-1878-4505-9292-305B9296F794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38047049-9711-4C1F-8FE0-F77950375060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38047049-9711-4C1F-8FE0-F77950375060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38047049-9711-4C1F-8FE0-F77950375060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38047049-9711-4C1F-8FE0-F77950375060}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0A014A14-F62F-4575-98C3-1D28D96372E0} = {D400B331-8C7C-482C-9485-9767C049F1E9}
-		{051F4C8F-1878-4505-9292-305B9296F794} = {FD5B72CD-6EDF-4F4F-ABEC-1CD84A3B6C56}
 		{1138AD5C-DD83-48FE-ACD2-A6E1530D4E29} = {121E5FD0-B561-45D7-9F97-D18910C07166}
 		{8BCB9D09-77E7-4C12-B8F2-DB4B498B78A9} = {121E5FD0-B561-45D7-9F97-D18910C07166}
+		{051F4C8F-1878-4505-9292-305B9296F794} = {FD5B72CD-6EDF-4F4F-ABEC-1CD84A3B6C56}
+		{38047049-9711-4C1F-8FE0-F77950375060} = {E7AB8A28-5967-4171-9CC0-26A8E696B536}
 	EndGlobalSection
 EndGlobal

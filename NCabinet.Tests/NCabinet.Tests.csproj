@@ -46,10 +46,20 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Getting.cs" />
+    <Compile Include="Basic\DelegateCallback.cs" />
+    <Compile Include="Basic\MethodCallback.cs" />
+    <Compile Include="Data\BaseDataObject.cs" />
+    <Compile Include="Data\Mock.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Setup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NCabinet.HttpRuntimeCacheProvider\NCabinet.HttpRuntimeCacheProvider.csproj">
+      <Project>{051F4C8F-1878-4505-9292-305B9296F794}</Project>
+      <Name>NCabinet.HttpRuntimeCacheProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NCabinet\NCabinet.csproj">
       <Project>{0A014A14-F62F-4575-98C3-1D28D96372E0}</Project>
       <Name>NCabinet</Name>

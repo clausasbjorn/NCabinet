@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheItem.cs" />
     <Compile Include="CacheManager.cs" />
     <Compile Include="CacheManagerExtensions.cs" />
     <Compile Include="CacheOptions.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="Exceptions\CallbackMethodNotFoundException.cs" />
     <Compile Include="Exceptions\CallingMethodNotFoundException.cs" />
     <Compile Include="Exceptions\ExistingProviderException.cs" />
+    <Compile Include="Exceptions\IllegalCacheItemException.cs" />
     <Compile Include="Exceptions\InvalidExpirationIntervalException.cs" />
     <Compile Include="ExpirationInterval.cs" />
     <Compile Include="ICacheManager.cs" />
