@@ -2,7 +2,10 @@ using System;
 
 namespace NCabinet.Exceptions
 {
-    public class CallbackMethodNotFoundException : Exception
+    /// <summary>
+    /// Could not find information about the method that invoked the cache callback
+    /// </summary>
+    public class CallingMethodNotFoundException : Exception
     {
         
     }

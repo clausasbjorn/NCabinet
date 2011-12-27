@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic\DelegateCallback.cs" />
+    <Compile Include="Basic\Grouping.cs" />
     <Compile Include="Basic\MethodCallback.cs" />
     <Compile Include="Basic\NoCallback.cs" />
     <Compile Include="Data\BaseDataObject.cs" />
@@ -66,6 +67,7 @@
       <Name>NCabinet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

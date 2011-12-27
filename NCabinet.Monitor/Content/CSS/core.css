@@ -1,0 +1,12 @@
+﻿html, body { margin: 0; height: 100%; width: 100%; }
+body { font-family: arial, sans; font-size: 12pt; }
+
+#canvas { width: 100%; }
+    #container { width: 1000px; margin: 0 auto; }
+        #filter { height: 60px; line-height: 60px; padding: 0 30px; background: #212121; color: #fff; font-weight: bold; }
+            #filter input[type=text] { padding: 5px; margin-left: 10px; font-size: 16pt; border: solid 3px #424242; width: 740px; }
+        #main { }
+        
+.info { background: #efefef; padding: 30px; margin: 20px 0; border: solid 3px #dedede; color: #444; }
+    
+        

@@ -1,8 +1,4 @@
-using System;
 using System.Diagnostics;
-using System.Dynamic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using NCabinet.Exceptions;
 
@@ -10,6 +6,11 @@ namespace NCabinet.Inspection
 {
     public static class CallAnalyzer
     {
+        /// <summary>
+        /// Analyzes the method call stack to find information about the
+        /// method that invoked the call to the cache manager.
+        /// </summary>
+        /// <returns>Information about the calling method</returns>
         public static CallerInfo GetCallerInfo()
         {
             var count = 2;
@@ -32,6 +33,11 @@ namespace NCabinet.Inspection
             }
         }
 
+        /// <summary>
+        /// Wraps information about the callback method.
+        /// </summary>
+        /// <param name="method">Information about the callback</param>
+        /// <returns>Wrapped information about the callback</returns>
         public static CallerInfo GetCallbackInfo(MethodInfo method)
         {
             var declarer = method.DeclaringType.FullName;
@@ -40,6 +46,4 @@ namespace NCabinet.Inspection
             return new CallerInfo() { Namespace = declarer, Method = name };
         }
     }
-
-
 }

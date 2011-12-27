@@ -10,10 +10,12 @@ namespace NCabinet
 {
     public partial class CacheManager : ICacheManager
     {
+        private static readonly object _groupLock = new object();
         private static ICacheProvider _cache;
 
         private string Name { get; set; }
         private string Description { get; set; }
+        private string Group { get; set;  }
         private DateTime? Expiration { get; set; }
         private TimeSpan? SlidingExpiration { get; set; }
         
@@ -64,6 +66,13 @@ namespace NCabinet
             var clone = Clone();
             clone.Name = name;
             clone.Description = description;
+            return clone;
+        }
+
+        public CacheManager GroupBy(params string[] keys)
+        {
+            var clone = Clone();
+            clone.Group = KeyBuilder.Build(keys);
             return clone;
         }
 
@@ -119,7 +128,7 @@ namespace NCabinet
 
         public CacheManager Clone()
         {
-            return new CacheManager() { Name = Name, Description = Description, Expiration = Expiration, SlidingExpiration = SlidingExpiration };
+            return new CacheManager() { Name = Name, Description = Description, Group = Group, Expiration = Expiration, SlidingExpiration = SlidingExpiration };
         }
         
         // Wrappers for this with 1-15 arguments are located in the CacheManagerExtensions.cs file
@@ -155,20 +164,22 @@ namespace NCabinet
             if (value == null)
             {
                 value = callback(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16);
-                if (value != null)
-                {
-                    var cacheItem = new CacheItem();
-                    cacheItem.Value = value;
-                    cacheItem.Key = key;
-                    cacheItem.Namespace = caller.Namespace;
-                    cacheItem.Method = cacheItem.Method;
-                    cacheItem.Name = Name;
-                    cacheItem.Description = Description;
-                    cacheItem.Loaded = DateTime.Now;
+                if (value == null)
+                    return default(TOut);
 
-                    _cache.Put(key, cacheItem);
-                    return (TOut)value;
-                }
+                var cacheItem = new CacheItem();
+                cacheItem.Value = value;
+                cacheItem.Key = key;
+                cacheItem.Namespace = caller.Namespace;
+                cacheItem.Method = cacheItem.Method;
+                cacheItem.Name = Name;
+                cacheItem.Description = Description;
+                cacheItem.Loaded = DateTime.Now;
+
+                _cache.Put(key, cacheItem);
+                AddToGroup(key);
+
+                return (TOut)value;
             }
 
             var output = value as CacheItem;
@@ -188,20 +199,22 @@ namespace NCabinet
             if (value == null)
             {
                 value = callback(parameters);
-                if (value != null)
-                {
-                    var cacheItem = new CacheItem();
-                    cacheItem.Value = value;
-                    cacheItem.Key = key;
-                    cacheItem.Namespace = caller.Namespace;
-                    cacheItem.Method = cacheItem.Method;
-                    cacheItem.Name = Name;
-                    cacheItem.Description = Description;
-                    cacheItem.Loaded = DateTime.Now;
+                if (value == null)
+                    return default(T);
+                
+                var cacheItem = new CacheItem();
+                cacheItem.Value = value;
+                cacheItem.Key = key;
+                cacheItem.Namespace = caller.Namespace;
+                cacheItem.Method = cacheItem.Method;
+                cacheItem.Name = Name;
+                cacheItem.Description = Description;
+                cacheItem.Loaded = DateTime.Now;
 
-                    _cache.Put(key, cacheItem);
-                    return (T)value;
-                }
+                _cache.Put(key, cacheItem);
+                AddToGroup(key);
+
+                return (T)value;
             }
 
             var output = value as CacheItem;
@@ -245,6 +258,23 @@ namespace NCabinet
             cacheItem.Description = Description;
             cacheItem.Loaded = DateTime.Now;
             _cache.Put(key, cacheItem);
+
+            AddToGroup(key);
+        }
+
+        private void AddToGroup(string key)
+        {
+            if (String.IsNullOrEmpty(Group))
+                return;
+
+            lock (_groupLock)
+            {
+                var keys = _cache.Get(Group) as List<string> ?? new List<string>();
+                if (!keys.Contains(key))
+                    keys.Add(key);
+
+                _cache.Put(Group, keys);
+            }
         }
 
         public void Remove<T>(params object[] parameters)
@@ -263,7 +293,6 @@ namespace NCabinet
 
             _cache.Remove(key);
         }
-
 
         // Wrappers for this with 1-15 arguments are located in the CacheManagerExtensions.cs file
         /// <summary>
@@ -295,6 +324,20 @@ namespace NCabinet
             var key = KeyBuilder.Build(type, caller, keys.ToArray());
 
             _cache.Remove(key);
+        }
+
+        public void RemoveGroup(params string[] keys)
+        {
+            var key = KeyBuilder.Build(keys);
+            lock (_groupLock)
+            {
+                var removable = _cache.Get(key) as List<string>;
+                if (removable == null)
+                    return;
+
+                foreach (var remove in removable)
+                    _cache.Remove(remove);
+            }
         }
 
         public bool Exists<T>(params object[] parameters)

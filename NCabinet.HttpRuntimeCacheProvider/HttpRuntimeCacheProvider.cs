@@ -7,7 +7,7 @@ namespace NCabinet.HttpRuntimeCacheProvider
 {
     public class HttpRuntimeCacheProvider : ICacheProvider
     {
-        private object _lock = new object();
+        private static readonly object _lock = new object();
         private readonly Cache _cache;
 
         public HttpRuntimeCacheProvider()
