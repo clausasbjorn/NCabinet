@@ -357,30 +357,9 @@ namespace NCabinet
             }
         }
 
-        /// <summary>
-        /// Removes an element from the cache based on the provided key elements.
-        /// </summary>
-        /// <param name="parameters">The elements used to build the key.</param>
-        public void Remove<T>(params object[] parameters)
-        {
-            var type = typeof(T);
-            var key = KeyBuilder.Build(type, null, parameters);
-
-            _cache.Remove(key);
-        }
-
-        public void Remove<T>(Callback<T> callback, params object[] parameters)
-        {
-            var type = typeof(T);
-            var caller = CallAnalyzer.GetCallerInfo();
-            var key = KeyBuilder.Build(type, caller, parameters);
-
-            _cache.Remove(key);
-        }
-
         // Wrappers for this with 1-15 arguments are located in the CacheManagerExtensions.cs file
         /// <summary>
-        /// 
+        /// Removes an item from the cache based on the exact arguments that were used to get it in the first place.
         /// </summary>
         private void Remove<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut> callback, TIn1 i1, TIn2 i2, TIn3 i3, TIn4 i4, TIn5 i5, TIn6 i6, TIn7 i7, TIn8 i8, TIn9 i9, TIn10 i10, TIn11 i11, TIn12 i12, TIn13 i13, TIn14 i14, TIn15 i15, TIn16 i16, MethodInfo callerInfo)
         {
@@ -410,6 +389,37 @@ namespace NCabinet
             _cache.Remove(key);
         }
 
+        /// <summary>
+        /// Removes an item from cache
+        /// </summary>
+        /// <typeparam name="T">The type of the item</typeparam>
+        /// <param name="callback">The callback used for getting the item</param>
+        /// <param name="parameters">The parameters provided when getting the item</param>
+        public void Remove<T>(Callback<T> callback, params object[] parameters)
+        {
+            var type = typeof(T);
+            var caller = CallAnalyzer.GetCallerInfo();
+            var key = KeyBuilder.Build(type, caller, parameters);
+
+            _cache.Remove(key);
+        }
+
+        /// <summary>
+        /// Removes an element from the cache based on the provided key elements.
+        /// </summary>
+        /// <param name="parameters">The elements used to build the key.</param>
+        public void Remove<T>(params object[] parameters)
+        {
+            var type = typeof(T);
+            var key = KeyBuilder.Build(type, null, parameters);
+
+            _cache.Remove(key);
+        }
+
+        /// <summary>
+        /// Iterates through all cache items belonging to a group and removes each of them.
+        /// </summary>
+        /// <param name="keys">The group identifier</param>
         public void RemoveGroup(params string[] keys)
         {
             var key = KeyBuilder.Build(keys);
@@ -424,6 +434,12 @@ namespace NCabinet
             }
         }
 
+        /// <summary>
+        /// Checks if an item exists in the cache
+        /// </summary>
+        /// <typeparam name="T">The type of the item</typeparam>
+        /// <param name="parameters">The keys identifying the item</param>
+        /// <returns>True if the item exists</returns>
         public bool Exists<T>(params object[] parameters)
         {
             var type = typeof(T);
@@ -432,6 +448,13 @@ namespace NCabinet
             return _cache.Exists(key);
         }
 
+        /// <summary>
+        /// Checks if an item exists in the cache
+        /// </summary>
+        /// <typeparam name="T">The type of the item</typeparam>
+        /// <param name="callback">The callback used for getting the item</param>
+        /// <param name="parameters">The parameters provided for getting the item</param>
+        /// <returns>True if the item exists</returns>
         public bool Exists<T>(Callback<T> callback, params object[] parameters)
         {
             var type = typeof(T);
@@ -441,6 +464,10 @@ namespace NCabinet
             return _cache.Exists(key);
         }
 
+        /// <summary>
+        /// Checks if an item exists in cache
+        /// </summary>
+        /// <returns>True if the item exists</returns>
         private bool Exists<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TIn12, TIn13, TIn14, TIn15, TIn16, TOut> callback, TIn1 i1, TIn2 i2, TIn3 i3, TIn4 i4, TIn5 i5, TIn6 i6, TIn7 i7, TIn8 i8, TIn9 i9, TIn10 i10, TIn11 i11, TIn12 i12, TIn13 i13, TIn14 i14, TIn15 i15, TIn16 i16, MethodInfo callerInfo)
         {
             var n = typeof(NoKey);
@@ -469,6 +496,9 @@ namespace NCabinet
             return _cache.Exists(key);
         }
 
+        /// <summary>
+        /// Removes everything from cache
+        /// </summary>
         public void Flush()
         {
             _cache.Flush();

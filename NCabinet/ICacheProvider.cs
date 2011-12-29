@@ -2,6 +2,9 @@ using System;
 
 namespace NCabinet
 {
+    /// <summary>
+    /// The interface any cache provider must adhere to.
+    /// </summary>
     public interface ICacheProvider
     {
         object Get(string key);

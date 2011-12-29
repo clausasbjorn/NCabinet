@@ -1,5 +1,8 @@
 namespace NCabinet
 {
+    /// <summary>
+    /// The basic cache manager interface
+    /// </summary>
     public interface ICacheManager
     {
         T Get<T>(Callback<T> callback, params object[] parameters);

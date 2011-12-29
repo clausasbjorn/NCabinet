@@ -2,6 +2,9 @@ using System;
 
 namespace NCabinet
 {
+    /// <summary>
+    /// Options controlling the behaviour of cache manager objects.
+    /// </summary>
     public class CacheOptions
     {
         public string Name { get; set; }
