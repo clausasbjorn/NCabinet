@@ -2,6 +2,10 @@ using System;
 
 namespace NCabinet
 {
+    /// <summary>
+    /// A wrapper used for storing objects in the cache in a uniform way.
+    /// Provides additional information used for monitoring the cache.
+    /// </summary>
     public class CacheItem
     {
         public object Value { get; set; }
