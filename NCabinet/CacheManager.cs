@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using NCabinet.Exceptions;
 using NCabinet.Inspection;
+using NCabinet.Monitor;
 using NCabinet.Settings;
 using NCabinet.Tools;
 
@@ -16,6 +17,8 @@ namespace NCabinet
         // Private members
         private static readonly object _groupLock = new object();
         private static ICacheProvider _cache;
+        private static bool _monitoringEnabled;
+        private static MonitorIndex _monitorIndex;
 
         private string Name { get; set; }
         private string Description { get; set; }
@@ -46,6 +49,15 @@ namespace NCabinet
                 throw new ExistingProviderException();
 
             _cache = provider;
+        }
+
+        /// <summary>
+        /// Turns on tracking of cache operations needed for monitoring.
+        /// </summary>
+        internal static void EnableMonitoring()
+        {
+            _monitoringEnabled = true;
+            _monitorIndex = new MonitorIndex();
         }
 
         /// <summary>
@@ -241,6 +253,9 @@ namespace NCabinet
                 _cache.Put(key, cacheItem);
                 AddToGroup(key);
 
+                if (_monitoringEnabled)
+                    _monitorIndex.Add(key, cacheItem);
+
                 return (TOut)value;
             }
 
@@ -280,6 +295,9 @@ namespace NCabinet
 
                 _cache.Put(key, cacheItem);
                 AddToGroup(key);
+
+                if (_monitoringEnabled)
+                    _monitorIndex.Add(key, cacheItem);
 
                 return (T)value;
             }
@@ -336,6 +354,9 @@ namespace NCabinet
             _cache.Put(key, cacheItem);
 
             AddToGroup(key);
+
+            if (_monitoringEnabled)
+                _monitorIndex.Add(key, cacheItem);
         }
 
         /// <summary>
@@ -387,6 +408,9 @@ namespace NCabinet
             var key = KeyBuilder.Build(type, caller, keys.ToArray());
 
             _cache.Remove(key);
+
+            if (_monitoringEnabled)
+                _monitorIndex.Remove(key);
         }
 
         /// <summary>
@@ -402,6 +426,9 @@ namespace NCabinet
             var key = KeyBuilder.Build(type, caller, parameters);
 
             _cache.Remove(key);
+
+            if (_monitoringEnabled)
+                _monitorIndex.Remove(key);
         }
 
         /// <summary>
@@ -414,6 +441,9 @@ namespace NCabinet
             var key = KeyBuilder.Build(type, null, parameters);
 
             _cache.Remove(key);
+
+            if (_monitoringEnabled)
+                _monitorIndex.Remove(key);
         }
 
         /// <summary>
@@ -430,7 +460,12 @@ namespace NCabinet
                     return;
 
                 foreach (var remove in removable)
+                {
                     _cache.Remove(remove);
+
+                    if (_monitoringEnabled)
+                        _monitorIndex.Remove(remove);
+                }
             }
         }
 
@@ -502,6 +537,9 @@ namespace NCabinet
         public void Flush()
         {
             _cache.Flush();
+
+            if (_monitoringEnabled)
+                _monitorIndex.Flush();
         }
     }
 }

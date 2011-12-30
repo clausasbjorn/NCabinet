@@ -1,3 +1,5 @@
+using System;
+
 namespace NCabinet.Settings
 {
     /// <summary>
@@ -9,6 +11,11 @@ namespace NCabinet.Settings
         public void UseProvider<T>(T provider) where T : ICacheProvider
         {
             CacheManager.SetProvider(provider);
+        }
+
+        public void EnableMonitoring()
+        {
+            CacheManager.EnableMonitoring();
         }
     }
 }

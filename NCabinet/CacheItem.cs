@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace NCabinet
 {
@@ -15,5 +16,23 @@ namespace NCabinet
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime Loaded { get; set; }
+
+        public List<string> Keywords
+        {
+            get
+            {
+                var keywords = new List<string>();
+                if (!String.IsNullOrEmpty(Namespace))
+                    keywords.Add(Namespace.ToLower());
+                if (!String.IsNullOrEmpty(Method))
+                    keywords.Add(Method.ToLower());
+                if (!String.IsNullOrEmpty(Namespace) && !String.IsNullOrEmpty(Method))
+                    keywords.Add(String.Format("{0}.{1}", Namespace.ToLower(), Method.ToLower()));
+                if (!String.IsNullOrEmpty(Name))
+                    keywords.Add(Name);
+                return keywords;
+            }
+        }
+
     }
 }

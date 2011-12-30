@@ -11,6 +11,7 @@ namespace NCabinet.Tests
             CacheManager.Initialize(setting =>
             {
                 setting.UseProvider<ICacheProvider>(new HttpRuntimeCacheProvider.HttpRuntimeCacheProvider());
+                setting.EnableMonitoring();
             });
 
             var cache = CacheManager.Create();

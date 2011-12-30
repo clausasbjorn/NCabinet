@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\NCabinet.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,7 +47,6 @@
     <Compile Include="CacheOptions.cs" />
     <Compile Include="Callback.cs" />
     <Compile Include="Exceptions\CallbackMethodNotFoundException.cs" />
-    <Compile Include="Exceptions\CallingMethodNotFoundException.cs" />
     <Compile Include="Exceptions\ExistingProviderException.cs" />
     <Compile Include="Exceptions\IllegalCacheItemException.cs" />
     <Compile Include="Exceptions\InvalidExpirationIntervalException.cs" />
@@ -54,6 +54,8 @@
     <Compile Include="ICacheManager.cs" />
     <Compile Include="ICacheProvider.cs" />
     <Compile Include="Inspection\CallerInfo.cs" />
+    <Compile Include="Monitor\MonitorIndex.cs" />
+    <Compile Include="Monitor\MonitorIndexItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\IInitializationExpression.cs" />
     <Compile Include="Settings\InitializationExpression.cs" />
