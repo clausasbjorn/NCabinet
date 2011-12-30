@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\ExistingProviderException.cs" />
     <Compile Include="Exceptions\IllegalCacheItemException.cs" />
     <Compile Include="Exceptions\InvalidExpirationIntervalException.cs" />
+    <Compile Include="Exceptions\MonitoringNotEnabledException.cs" />
     <Compile Include="ExpirationInterval.cs" />
     <Compile Include="ICacheManager.cs" />
     <Compile Include="ICacheProvider.cs" />

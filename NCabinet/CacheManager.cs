@@ -26,6 +26,17 @@ namespace NCabinet
         private DateTime? Expiration { get; set; }
         private TimeSpan? SlidingExpiration { get; set; }
         
+        public static MonitorIndex Monitor
+        {
+            get
+            {
+                if (_monitoringEnabled == false)
+                    throw new MonitoringNotEnabledException();
+
+                return _monitorIndex;
+            }
+        }
+
         // Constructors
         public CacheManager() { }
         public CacheManager(CacheOptions options)

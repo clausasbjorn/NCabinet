@@ -29,7 +29,7 @@ namespace NCabinet
                 if (!String.IsNullOrEmpty(Namespace) && !String.IsNullOrEmpty(Method))
                     keywords.Add(String.Format("{0}.{1}", Namespace.ToLower(), Method.ToLower()));
                 if (!String.IsNullOrEmpty(Name))
-                    keywords.Add(Name);
+                    keywords.Add(Name.ToLower());
                 return keywords;
             }
         }

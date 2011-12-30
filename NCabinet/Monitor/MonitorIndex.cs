@@ -60,6 +60,8 @@ namespace NCabinet.Monitor
             {
                 foreach (var keyword in keywords)
                     _root.Remove(keyword, key);
+
+                _keyIndex.Remove(key);
             }
         }
 
@@ -70,7 +72,7 @@ namespace NCabinet.Monitor
         /// <returns></returns>
         public List<string> Search(string keyword)
         {
-            return String.IsNullOrEmpty(keyword) ? new List<string>() : _root.Search(keyword);
+            return String.IsNullOrEmpty(keyword) ? new List<string>() : _root.Search(keyword.ToLower());
         }
 
         public void Flush()

@@ -18,7 +18,7 @@ namespace NCabinet.Monitor
         {
             if (word == null)
                 return;
-
+            
             if (word.Length == 0)
             {
                 if (_keys == null)
@@ -42,7 +42,7 @@ namespace NCabinet.Monitor
             var result = new List<string>();
             if (word == null)
                 return result;
-
+            
             if (word.Length == 0)
                 return AllKeys;
 
@@ -75,7 +75,7 @@ namespace NCabinet.Monitor
             { 
                 var keys = new List<string>();
                 if (_keys != null)
-                    keys.AddRange(keys);
+                    keys.AddRange(_keys);
                 if (_dictionary != null)
                     foreach (var item in _dictionary)
                         keys.AddRange(item.Value.AllKeys);
